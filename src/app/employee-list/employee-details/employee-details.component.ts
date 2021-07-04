@@ -44,7 +44,7 @@ export class EmployeeDetailsComponent implements OnInit {
     ],
   });
   submitForm() {
-    console.log(this.profileForm.value);
+    console.log(this.profileForm);
     if (this.profileForm.valid) {
       console.log('form valid');
     }

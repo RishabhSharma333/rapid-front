@@ -9,7 +9,6 @@ import { EmployeeDetailsComponent } from './employee-list/employee-details/emplo
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,28 +21,24 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatSelectModule} from '@angular/material/select';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatTabsModule} from '@angular/material/tabs';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    EmployeeListComponent,
-    EmployeeDetailsComponent
-  ],
+  declarations: [AppComponent, EmployeeListComponent, EmployeeDetailsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CommonModule,
     MatToolbarModule,
+    FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
     MatTabsModule,
@@ -64,9 +59,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatListModule,
     MatDividerModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

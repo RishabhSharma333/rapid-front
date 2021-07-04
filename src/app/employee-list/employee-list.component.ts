@@ -10,6 +10,9 @@ export class EmployeeListComponent implements OnInit {
   constructor() { }
   showFiller:boolean=true;
   path:number=0;
+  searchFilter:string='';
+  pageSize:number=10;
+  searchSelect:number=1;
   ngOnInit(): void {
     this.employees=[
       {
@@ -66,6 +69,9 @@ export class EmployeeListComponent implements OnInit {
     this.path=1;
   }
   employees:any;
+  selectSearchValue(num:number){
+   this.searchSelect=num;
+  }
 
 
 }
