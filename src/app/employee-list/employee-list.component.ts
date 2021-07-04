@@ -11,6 +11,53 @@ export class EmployeeListComponent implements OnInit {
   showFiller:boolean=true;
   path:number=0;
   ngOnInit(): void {
+    this.employees=[
+      {
+      "first_name":"valo",
+      "dlast_name":"valo",
+      "conta_name":"valo", 
+      "depar_name":"valo",
+      "posit_name":"valo",
+      "salary_nam":"valo",
+      "email_name":"valo",
+    },
+    {
+      "first_name":"valo",
+      "dlast_name":"valo",
+      "conta_name":"valo", 
+      "depar_name":"valo",
+      "posit_name":"valo",
+      "salary_nam":"valo",
+      "email_name":"valo",
+    },
+    {
+      "first_name":"valo",
+      "dlast_name":"valo",
+      "conta_name":"valo", 
+      "depar_name":"valo",
+      "posit_name":"valo",
+      "salary_nam":"valo",
+      "email_name":"valo",
+    },
+    {
+      "first_name":"valo",
+      "dlast_name":"valo",
+      "conta_name":"valo", 
+      "depar_name":"valo",
+      "posit_name":"valo",
+      "salary_nam":"valo",
+      "email_name":"valo",
+    },
+    {
+      "first_name":"valo",
+      "dlast_name":"valo",
+      "conta_name":"valo", 
+      "depar_name":"valo",
+      "posit_name":"valo",
+      "salary_nam":"valo",
+      "email_name":"valo",
+    },
+  ]
   }
   selectHome(){
     this.path=0;
@@ -18,5 +65,7 @@ export class EmployeeListComponent implements OnInit {
   selectDetails(){
     this.path=1;
   }
+  employees:any;
+
 
 }

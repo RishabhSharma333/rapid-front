@@ -1,6 +1,7 @@
 .example-spacer {
     flex: 1 1 auto;
   }
+ 
   
   .example-container {
     width: 100%;
@@ -26,4 +27,9 @@
   .mat-toolbar.mat-primary {
     background: rgb(42, 0, 42);
     color: #fff;
+  }
+  .big {
+    width: 2rem;
+    height: 2rem;
+    font-size: 2rem;
   }

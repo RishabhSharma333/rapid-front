@@ -1,62 +1,99 @@
-<mat-toolbar color="primary" >
- 
-    <span style="margin: 3px 0 0 50px;">Employee Mangement Application</span>
-    <span class="example-spacer"></span>
-    <span>
-      <button mat-button style="margin: 1rem;">Github Frontend <mat-icon>code</mat-icon></button>
-    </span>
-  
-    <span>
-        <button mat-button style="margin: 1rem;">Github Backend <mat-icon>code</mat-icon></button>
-    </span>
-    <span>
-        <button mat-button style="margin: 1rem;">Login <mat-icon>login</mat-icon></button>
-    </span>
-  </mat-toolbar>
-  
-  <mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side"  opened="true" disableClose="true">
-      <br />
-      <br />
-      <br />
-  
-      <mat-nav-list>
-        <mat-list-item (click)="showFiller = !showFiller"  >
-          <a *ngIf="!showFiller"> <mat-icon>arrow_forward_ios</mat-icon></a>
-          <a *ngIf="showFiller" style="margin-left: 3rem"
-            ><mat-icon>arrow_back_ios</mat-icon></a
-          >
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item
-          [ngClass]="{ singleClass: path != 0 }"
-          (click)="selectHome()"
-        >
-          <mat-icon matListIcon>people</mat-icon>
-          <a *ngIf="showFiller" matLine>Employee List</a>
-        </mat-list-item>
-        <mat-list-item
-          [ngClass]="{ singleClass: path != 1 }"
-          (click)="selectDetails()"
-        >
-          <mat-icon matListIcon> manage_accounts</mat-icon>
-          <a matLine *ngIf="showFiller">Details</a>
-        </mat-list-item>
-       
-      </mat-nav-list>
-    </mat-drawer>
-  
-    <div >
-      <br />
-      <br />
-      <br />
-  
-      <div *ngIf="path==0"> 
-        <div  style=" background-color: rgb(42, 0, 42); width: 100%;height: 6rem;">
-            <p style="color: white;font-size: x-large; padding: 2rem;">Employee List</p>
-        </div>
+<mat-toolbar color="primary">
+  <span style="margin: 3px 0 0 50px">Employee Mangement Application </span>
+  <span class="example-spacer"></span>
+  <span>
+    <button mat-button style="margin: 1rem">
+      Github Frontend <mat-icon>code</mat-icon>
+    </button>
+  </span>
 
+  <span>
+    <button mat-button style="margin: 1rem">
+      Github Backend <mat-icon>code</mat-icon>
+    </button>
+  </span>
+  <span>
+    <button mat-button style="margin: 1rem">
+      Login <mat-icon>login</mat-icon>
+    </button>
+  </span>
+</mat-toolbar>
+
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer
+    #drawer
+    class="example-sidenav"
+    mode="side"
+    opened="true"
+    disableClose="true"
+  >
+    <br />
+    <br />
+    <br />
+
+    <mat-nav-list>
+      <mat-list-item (click)="showFiller = !showFiller">
+        <a *ngIf="!showFiller"> <mat-icon>arrow_forward_ios</mat-icon></a>
+        <a *ngIf="showFiller" style="margin-left: 3rem"
+          ><mat-icon>arrow_back_ios</mat-icon></a
+        >
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item
+        [ngClass]="{ singleClass: path != 0 }"
+        (click)="selectHome()"
+      >
+        <mat-icon matListIcon>people</mat-icon>
+        <a *ngIf="showFiller" matLine>Employee List</a>
+      </mat-list-item>
+      <mat-list-item
+        [ngClass]="{ singleClass: path != 1 }"
+        (click)="selectDetails()"
+      >
+        <mat-icon matListIcon> manage_accounts</mat-icon>
+        <a matLine *ngIf="showFiller">Details</a>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <div>
+    <br />
+    <br />
+    <br />
+
+    <div *ngIf="path == 0">
+      <div style="background-color: rgb(42, 0, 42); width: 100%; height: 6rem;">
+
+        <p style="color: white; font-size: x-large; padding: 2rem">
+            Employee List 
+            
+        </p>
       </div>
-      <app-employee-details  *ngIf="path==1"></app-employee-details>
+
+      <mat-grid-list cols="2" rowHeight="3:1" >
+        <mat-grid-tile *ngFor="let employee of employees">
+          <mat-card class="mat-elevation-z3" style="margin: 1rem; width: 100%">
+            <mat-card-title>
+              <p>{{ employee.first_name }}</p>
+            </mat-card-title>
+            <mat-card-content fxLayout="row">
+                
+              <div style="width: 50%;">
+                <p>{{ employee.dlast_name }}</p>
+                <p>{{ employee.conta_name }}</p>
+                <p>{{ employee.depar_name }}</p>
+                <p>{{ employee.posit_name }}</p>
+                <p>{{ employee.salary_nam }}</p>
+                <p>{{ employee.email_name }}</p>
+              </div>
+              <div style="width: 50%;">
+                picture here
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
     </div>
-  </mat-drawer-container>
+    <app-employee-details *ngIf="path == 1"></app-employee-details>
+  </div>
+</mat-drawer-container>

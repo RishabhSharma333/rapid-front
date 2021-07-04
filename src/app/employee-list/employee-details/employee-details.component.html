@@ -1,1 +1,69 @@
-<p>employee-details works!</p>
+<div class="columns">
+  <form [formGroup]="profileForm" style="text-align: center">
+    <mat-card style="margin: 1rem; width: 50%">
+      <mat-card-header>
+        <mat-card-title> Edit Profile Information </mat-card-title>
+      </mat-card-header>
+      <mat-card-content fxLayout="column">
+        <mat-form-field style="margin: 1rem">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="first_name" />
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>some Hint Here</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field style="margin: 1rem">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="last_name" />
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>some Hint Here</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field style="margin: 1rem">
+          <mat-label>Email Address</mat-label>
+          <input type="email" matInput formControlName="email_address" />
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>some Hint Here</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field style="margin: 1rem">
+          <mat-label>Mobile Number</mat-label>
+          <input type="text" matInput formControlName="contact_number" />
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>some Hint Here</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field style="margin: 1rem">
+          <mat-label>Department Name</mat-label>
+          <input type="text" matInput formControlName="department_name" />
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>some hint here</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field style="margin: 1rem">
+          <mat-label>Position </mat-label>
+          <input type="text" matInput formControlName="position_name" />
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>some hint here</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field style="margin: 1rem">
+          <mat-label>Salary</mat-label>
+          <input type="text" matInput formControlName="salary" />
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>some hint here</mat-hint>
+        </mat-form-field>
+      </mat-card-content>
+      <button mat-raised-button style="margin: 1rem">Cancel</button>
+      <button
+        mat-raised-button
+        style="margin: 1rem"
+        [disabled]="!this.profileForm.valid"
+        (click)="submitForm()"
+      >
+        Submit Changes
+        <mat-icon>how_to_reg</mat-icon>
+      </button>
+    </mat-card>
+  </form>
+</div>

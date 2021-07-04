@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeDetailsComponent } from './employee-list/employee-details/employee-details.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -44,7 +44,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     AppRoutingModule,
     CommonModule,
     MatToolbarModule,
-    FormsModule,
+    ReactiveFormsModule,
     MatSelectModule,
     MatTabsModule,
     MatProgressSpinnerModule,
