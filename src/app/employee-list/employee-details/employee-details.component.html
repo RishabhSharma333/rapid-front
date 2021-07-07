@@ -1,80 +1,148 @@
-<div class="columns">
-  <form [formGroup]="profileForm" style="text-align: center;margin: 4rem;">
-    <mat-card style="margin: 1rem; width: 50%">
-      <mat-card-header>
-        <mat-card-title> Edit Profile Information </mat-card-title>
-      </mat-card-header>
-      <mat-card-content fxLayout="column">
+<div class="columns" style="background-color: #068d9d; padding: 4rem">
+  <div fxLayout="row">
+    <form
+      [formGroup]="profileForm"
+      style="text-align: center; margin: 4rem; width: 50%"
+    >
+      <mat-card style="margin: 1rem">
+        <mat-card-header>
+          <mat-card-title> Edit Profile Information </mat-card-title>
+        </mat-card-header>
+        <mat-card-content fxLayout="column">
           <div fxLayout="row">
-               <mat-form-field style="margin: 1rem;width: 50%;" >
-          <mat-label>First Name</mat-label>
-          <input matInput formControlName="first_name" />
-          <mat-hint *ngIf="this.profileForm.controls.first_name.touched&&this.profileForm.controls.first_name.status=='INVALID'">Invalid  First name</mat-hint>
+            <mat-form-field style="margin: 1rem; width: 50%">
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="first_name" />
+              <mat-hint
+                *ngIf="
+                  this.profileForm.controls.first_name.touched &&
+                  this.profileForm.controls.first_name.status == 'INVALID'
+                "
+                >Invalid First name</mat-hint
+              >
+            </mat-form-field>
 
-        </mat-form-field>
-
-        <mat-form-field style="margin: 1rem;width: 50%;" >
-          <mat-label>Last Name</mat-label>
-          <input matInput formControlName="last_name"  />
-          <mat-hint *ngIf="this.profileForm.controls.last_name.touched&&this.profileForm.controls.last_name.status=='INVALID'">Invalid Last Name</mat-hint>
-
-        </mat-form-field>
-          </div>
-       
-          <div fxLayout="row">
-            <mat-form-field style="margin: 1rem;width: 50%;" >
-          <mat-label>Email Address</mat-label>
-          <input type="email" matInput formControlName="email_address" />
-          <mat-icon matSuffix *ngIf="this.profileForm.controls.email_address.touched&&this.profileForm.controls.email_address.status=='VALID'">check</mat-icon>
-          <mat-hint *ngIf="this.profileForm.controls.email_address.touched&&this.profileForm.controls.email_address.status=='INVALID'">Invalid Email</mat-hint>
-        </mat-form-field>
-
-        <mat-form-field style="margin: 1rem;width: 50%;" >
-          <mat-label>Mobile Number</mat-label>
-          <input type="text" matInput formControlName="contact_number" minlength="10" maxlength="10" />
-          <mat-icon matSuffix *ngIf="this.profileForm.controls.contact_number.touched&&this.profileForm.controls.contact_number.status=='VALID'">check</mat-icon>
-          <mat-hint *ngIf="this.profileForm.controls.contact_number.touched&&this.profileForm.controls.contact_number.status=='INVALID'">Invalid Mobile Number</mat-hint>
-        </mat-form-field>
+            <mat-form-field style="margin: 1rem; width: 50%">
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="last_name" />
+              <mat-hint
+                *ngIf="
+                  this.profileForm.controls.last_name.touched &&
+                  this.profileForm.controls.last_name.status == 'INVALID'
+                "
+                >Invalid Last Name</mat-hint
+              >
+            </mat-form-field>
           </div>
 
-        
           <div fxLayout="row">
-            <mat-form-field style="margin: 1rem;width: 50%;" >
+            <mat-form-field style="margin: 1rem; width: 50%">
+              <mat-label>Email Address</mat-label>
+              <input type="email" matInput formControlName="email_address" />
+              <mat-icon
+                matSuffix
+                *ngIf="
+                  this.profileForm.controls.email_address.touched &&
+                  this.profileForm.controls.email_address.status == 'VALID'
+                "
+                >check</mat-icon
+              >
+              <mat-hint
+                *ngIf="
+                  this.profileForm.controls.email_address.touched &&
+                  this.profileForm.controls.email_address.status == 'INVALID'
+                "
+                >Invalid Email</mat-hint
+              >
+            </mat-form-field>
 
-          <mat-label>Department Name</mat-label>
-          <input type="text" matInput formControlName="department_name" />
-          <mat-hint *ngIf="this.profileForm.controls.department_name.touched&&this.profileForm.controls.department_name.status=='INVALID'">Invalid Department</mat-hint>
-        </mat-form-field>
-
-        <mat-form-field style="margin: 1rem;width: 50%;" >
-
-          <mat-label>Position </mat-label>
-          <input type="text" matInput formControlName="position_name" />
-          <mat-hint *ngIf="this.profileForm.controls.position_name.touched&&this.profileForm.controls.position_name.status=='INVALID'">Invalid position</mat-hint>
-        </mat-form-field>
+            <mat-form-field style="margin: 1rem; width: 50%">
+              <mat-label>Mobile Number</mat-label>
+              <input
+                type="text"
+                matInput
+                formControlName="contact_number"
+                minlength="10"
+                maxlength="10"
+              />
+              <mat-icon
+                matSuffix
+                *ngIf="
+                  this.profileForm.controls.contact_number.touched &&
+                  this.profileForm.controls.contact_number.status == 'VALID'
+                "
+                >check</mat-icon
+              >
+              <mat-hint
+                *ngIf="
+                  this.profileForm.controls.contact_number.touched &&
+                  this.profileForm.controls.contact_number.status == 'INVALID'
+                "
+                >Invalid Mobile Number</mat-hint
+              >
+            </mat-form-field>
           </div>
 
-        
+          <div fxLayout="row">
+            <mat-form-field style="margin: 1rem; width: 50%">
+              <mat-label>Department Name</mat-label>
+              <input type="text" matInput formControlName="department" />
+              <mat-hint
+                *ngIf="
+                  this.profileForm.controls.department.touched &&
+                  this.profileForm.controls.department.status == 'INVALID'
+                "
+                >Invalid Department</mat-hint
+              >
+            </mat-form-field>
+
+            <mat-form-field style="margin: 1rem; width: 50%">
+              <mat-label>Position </mat-label>
+              <input type="text" matInput formControlName="position" />
+              <mat-hint
+                *ngIf="
+                  this.profileForm.controls.position.touched &&
+                  this.profileForm.controls.position.status == 'INVALID'
+                "
+                >Invalid position</mat-hint
+              >
+            </mat-form-field>
+          </div>
 
           <div fxLayout="row">
-              <mat-form-field style="margin: 1rem; width: 50%;">
-          <mat-label>Salary</mat-label>
-          <input type="number" matInput formControlName="salary" />
-          <mat-hint *ngIf="this.profileForm.controls.salary.touched&&this.profileForm.controls.salary.status=='INVALID'">Invalid Salary</mat-hint>
-        </mat-form-field>
+            <mat-form-field style="margin: 1rem; width: 50%">
+              <mat-label>Salary</mat-label>
+              <input type="number" matInput formControlName="salary" />
+              <mat-hint
+                *ngIf="
+                  this.profileForm.controls.salary.touched &&
+                  this.profileForm.controls.salary.status == 'INVALID'
+                "
+                >Invalid Salary</mat-hint
+              >
+            </mat-form-field>
+
+            <div style="margin: 2rem">
+              <input type="file" (change)="onFileSelect($event)" />
+            </div>
           </div>
-        
-      </mat-card-content>
-      <button mat-raised-button style="margin: 1rem"> Cancel <mat-icon>close</mat-icon></button>
-      <button
-        mat-raised-button
-        style="margin: 1rem"
-        
-        (click)="submitForm()"
-      >
-        Submit Changes
-        <mat-icon>how_to_reg</mat-icon>
-      </button>
-    </mat-card>
-  </form>
+        </mat-card-content>
+        <button
+          mat-raised-button
+          style="margin: 1rem"
+          type="button"
+          (click)="clearForm()"
+        >
+          Clear <mat-icon>close</mat-icon>
+        </button>
+        <button mat-raised-button style="margin: 1rem"  [disabled]="(!this.profileForm.valid)||(imageUrl==null)" (click)="submitForm()">
+          Submit Changes
+          <mat-icon>how_to_reg</mat-icon>
+        </button>
+      </mat-card>
+    </form>
+    <div style="width: 50%; margin-top: 6rem">
+      <img [src]="imageUrl" width="300" height="300" *ngIf="imageUrl" />
+    </div>
+  </div>
 </div>

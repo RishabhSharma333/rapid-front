@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { EmployeeService } from 'src/app/employee.service';
+import { Employee } from 'src/app/model/Employee';
 
 @Component({
   selector: 'app-employee-details',
@@ -7,30 +10,24 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./employee-details.component.css'],
 })
 export class EmployeeDetailsComponent implements OnInit {
-  constructor( private formBuilder:FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private httpClient: HttpClient,
+    private employeeService: EmployeeService
+  ) {}
+  employee: Employee;
+  imageUrl: any;
+  selectedImage;
+  @Output()
+  employeeAddedEvent = new EventEmitter();
 
   ngOnInit(): void {}
   profileForm = this.formBuilder.group({
-    first_name: ['', [
-      Validators.required,
-      Validators.minLength(2),
-    ]],
-    last_name: ['', [
-      Validators.required,
-      Validators.minLength(2),
-    ]],
-    department_name: ['', [
-      Validators.required,
-      Validators.minLength(2),
-    ]],
-    salary: ['', [
-      Validators.required,
-      Validators.minLength(2),
-    ]],
-    position_name: ['', [
-      Validators.required,
-      Validators.minLength(2),
-    ]],
+    first_name: ['', [Validators.required, Validators.minLength(2)]],
+    last_name: ['', [Validators.required, Validators.minLength(2)]],
+    department: ['', [Validators.required, Validators.minLength(2)]],
+    salary: ['', [Validators.required, Validators.minLength(2)]],
+    position: ['', [Validators.required, Validators.minLength(2)]],
     email_address: [
       '',
       [
@@ -43,10 +40,58 @@ export class EmployeeDetailsComponent implements OnInit {
       [Validators.required, Validators.pattern('^[6-9][0-9]{9}$')],
     ],
   });
+
   submitForm() {
     console.log(this.profileForm);
     if (this.profileForm.valid) {
       console.log('form valid');
+      console.log(this.imageUrl);
+
+      const formData = new FormData();
+      formData.append('imageFile', this.selectedImage );
+
+      this.httpClient
+        .post('http://localhost:8080/api/upload', formData, {
+          observe: 'response',
+        })
+        .subscribe((res) => {
+          if (res.status === 200) {
+            this.employeeService
+              .addEmployee({
+                "first_name":this.profileForm.get('first_name').value,
+                "last_name": this.profileForm.get('last_name').value,
+                "contact_number":this.profileForm.get('contact_number').value,
+                "email_address":this.profileForm.get('email_address').value,
+                "department":this.profileForm.get('department').value,
+                "position":this.profileForm.get('position').value,
+                "salary":this.profileForm.get('salary').value
+
+              })
+              .subscribe((employee) => {
+                console.log(employee);
+                this.employeeAddedEvent.emit();
+                console.log('emplooye added');
+                this.profileForm.reset();
+                // this.imageUrl=null;
+              });
+          }
+        });
     }
+    // this.profileForm.reset();
+  }
+  clearForm(){
+    this.profileForm.reset();
+    // this.imageUrl=null;
+  }
+  public onFileSelect(event) {
+    console.log(event);
+    this.selectedImage = event.target.files[0];
+
+    // Below part is used to display the selected image
+    let reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = (event2) => {
+      this.imageUrl = reader.result;
+    };
   }
 }

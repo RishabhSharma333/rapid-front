@@ -30,9 +30,14 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [AppComponent, EmployeeListComponent, EmployeeDetailsComponent],
+  declarations: [
+    AppComponent,
+    EmployeeListComponent,
+    EmployeeDetailsComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -54,6 +59,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatMenuModule,
     MatGridListModule,
     MatInputModule,
+    MatDialogModule,
     MatSidenavModule,
     MatExpansionModule,
     MatListModule,
