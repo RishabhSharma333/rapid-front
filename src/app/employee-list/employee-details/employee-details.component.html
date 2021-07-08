@@ -123,7 +123,7 @@
             </mat-form-field>
 
             <div style="margin: 2rem">
-              <input type="file" (change)="onFileSelect($event)" />
+              <input #userPhoto type="file"  (change)="onFileSelect($event)" />
             </div>
           </div>
         </mat-card-content>
@@ -135,14 +135,16 @@
         >
           Clear <mat-icon>close</mat-icon>
         </button>
-        <button mat-raised-button style="margin: 1rem"  [disabled]="(!this.profileForm.valid)||(imageUrl==null)" (click)="submitForm()">
+        <button mat-raised-button style="margin: 1rem" type="button" [disabled]="(!this.profileForm.valid)||(imageUrl==null)" (click)="submitForm()">
           Submit Changes
           <mat-icon>how_to_reg</mat-icon>
         </button>
       </mat-card>
     </form>
     <div style="width: 50%; margin-top: 6rem">
-      <img [src]="imageUrl" width="300" height="300" *ngIf="imageUrl" />
+      <p style="font-size: x-large; ">Image Preview</p>
+      
+      <img [src]="imageUrl" width="250" height="300" *ngIf="imageUrl" />
     </div>
   </div>
 </div>

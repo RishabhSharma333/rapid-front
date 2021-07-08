@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { EmployeeService } from 'src/app/employee.service';
 import { Employee } from 'src/app/model/Employee';
@@ -16,12 +16,22 @@ export class EmployeeDetailsComponent implements OnInit {
     private employeeService: EmployeeService
   ) {}
   employee: Employee;
-  imageUrl: any;
-  selectedImage;
+  @Input() employeeClick:Employee;
   @Output()
   employeeAddedEvent = new EventEmitter();
+  imageUrl: any;
+  selectedImage;
+  @ViewChild('userPhoto') userPhoto: ElementRef;
+ 
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(this.employeeClick){
+    //  console.log(this.employeeClick);
+     this.profileForm.patchValue({first_name:this.employeeClick.first_name, last_name:this.employeeClick.last_name ,department:this.employeeClick.department ,salary:this.employeeClick.salary ,email_address:this.employeeClick.email_address,contact_number:this.employeeClick.contact_number});
+      this.profileForm.patchValue({position:this.employeeClick.position});
+      this.imageUrl=this.employeeClick.takenImage;
+    }
+  }
   profileForm = this.formBuilder.group({
     first_name: ['', [Validators.required, Validators.minLength(2)]],
     last_name: ['', [Validators.required, Validators.minLength(2)]],
@@ -72,7 +82,9 @@ export class EmployeeDetailsComponent implements OnInit {
                 this.employeeAddedEvent.emit();
                 console.log('emplooye added');
                 this.profileForm.reset();
-                // this.imageUrl=null;
+                this.imageUrl=null;
+                this.userPhoto.nativeElement.value = null;
+                this.employeeClick=null;
               });
           }
         });
@@ -81,7 +93,9 @@ export class EmployeeDetailsComponent implements OnInit {
   }
   clearForm(){
     this.profileForm.reset();
-    // this.imageUrl=null;
+    this.employeeClick=null;
+    this.imageUrl=null;
+    this.userPhoto.nativeElement.value = null;
   }
   public onFileSelect(event) {
     console.log(event);

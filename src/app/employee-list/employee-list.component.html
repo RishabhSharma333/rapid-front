@@ -1,5 +1,7 @@
 <mat-toolbar color="primary">
-  <span style="margin: 3px 0 0 50px;color:black">Employee Mangement Application </span>
+  <span style="margin: 3px 0 0 50px; color: black"
+    >Employee Mangement Application
+  </span>
   <span class="example-spacer"></span>
   <span>
     <button mat-button style="margin: 1rem">
@@ -13,7 +15,7 @@
     </button>
   </span>
   <span>
-    <button mat-button style="margin: 1rem;color:black;" >
+    <button mat-button style="margin: 1rem; color: black">
       Login <mat-icon>login</mat-icon>
     </button>
   </span>
@@ -40,14 +42,14 @@
       </mat-list-item>
       <mat-divider></mat-divider>
       <mat-list-item
-        [ngClass]="{ singleClass: path == 0 }"
+        [ngClass]="{ singleClass: !showDetailsComponent }"
         (click)="selectHome()"
       >
         <mat-icon matListIcon>list</mat-icon>
         <a *ngIf="showFiller" matLine>Employee List</a>
       </mat-list-item>
       <mat-list-item
-        [ngClass]="{ singleClass: path == 1 }"
+        [ngClass]="{ singleClass: showDetailsComponent }"
         (click)="selectDetails()"
       >
         <mat-icon matListIcon> manage_accounts</mat-icon>
@@ -61,7 +63,10 @@
     <br />
     <br />
 
-    <div *ngIf="path == 0" style="background-color: #068d9d; padding: 2rem">
+    <div
+      *ngIf="!showDetailsComponent"
+      style="background-color: #068d9d; padding: 2rem"
+    >
       <div style="width: 100%; height: 6rem" fxLayout="row">
         <p style="font-size: medium; padding: 2rem">Employee List</p>
 
@@ -110,38 +115,61 @@
       </div>
       <br />
 
-      <mat-grid-list cols="2" rowHeight="3:1">
+      <mat-grid-list cols="3" rowHeight="3:2">
         <mat-grid-tile *ngFor="let employee of employees">
           <mat-card class="mat-elevation-z3" style="margin: 1rem; width: 100%">
-            <mat-card-title>
-              <p>{{ employee.first_name }} {{ employee.last_name }}</p>
-            </mat-card-title>
-            <mat-card-content fxLayout="row" style="margin-left: 1rem;">
-              <div style="width: 50%">
+            <mat-card-header>
+              <mat-card-title>
+                {{ employee.first_name }} {{ employee.last_name }}
+              </mat-card-title>
+              <mat-card-subtitle style="font-size: medium;">{{ employee.position }}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content fxLayout="row" style="margin-left: 1rem">
+              <div style="width: 60%">
                 <p>{{ employee.contact_number }}</p>
                 <p>{{ employee.email_address }}</p>
                 <p>{{ employee.department }}</p>
-                <p>{{ employee.position }}</p>
                 <p>{{ employee.salary }}</p>
-                <div fxLayout="row">
-                  <button mat-stroked-button  (click)="openDialog(employee.id)"> Delete</button>
-                  <button mat-raised-button  style="margin-left: 2rem;" (click)="edit(employee)"> Edit</button>
-                </div>
-                
+                <mat-card-actions fxLayout="row">
+                  <button
+                    mat-stroked-button
+                    style="background-color: black; color: white"
+                    (click)="openDialog(employee.id)"
+                  >
+                    Delete
+                  </button>
+                  <button
+                    mat-raised-button
+                    style="margin-left: 2rem; background-color: #068d9d"
+                    (click)="edit(employee)"
+                  >
+                    Edit
+                  </button>
+                </mat-card-actions>
               </div>
-              <div style="width: 50%"  >
-                
-                <img src="{{employee.takenImage}}" height="100" width="100">
+              <div style="width: 40%">
+                <img src="{{ employee.takenImage }}" height="150" width="150" />
               </div>
             </mat-card-content>
           </mat-card>
         </mat-grid-tile>
       </mat-grid-list>
     </div>
-    <div style="background-color:#068d9d;">
-      <button mat-button  *ngIf="this.path==1"  style="margin: 2rem;" (click)="this.path=0"><mat-icon>arrow_back</mat-icon> Back To List </button>
-    <app-employee-details *ngIf="path == 1" ></app-employee-details>
+    <div style="background-color: #068d9d">
+      <button
+        mat-button
+        *ngIf="showDetailsComponent"
+        style="margin: 2rem"
+        (click)="showDetailsComponent = false"
+      >
+        <mat-icon>arrow_back</mat-icon> Back To List
+      </button>
+      <app-employee-details
+        *ngIf="showDetailsComponent"
+        [employeeClick]="selectedEmplooyee"
+        (employeeAddedEvent)="getNewData()"
+      ></app-employee-details>
     </div>
-    
   </div>
 </mat-drawer-container>

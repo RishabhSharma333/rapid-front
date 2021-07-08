@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,EventEmitter} from '@angular/core';
 import { EmployeeService } from '../employee.service';
 import { Employee } from '../model/Employee';
 
@@ -11,20 +11,24 @@ export class EmployeeListComponent implements OnInit {
   constructor(private employeeService: EmployeeService) {}
   empolyees: Array<Employee>;
   employeeHelp: Array<Employee>;
+  showDetailsComponent:boolean=false;
+  selectedEmplooyee:Employee;
 
   showFiller: boolean = true;
   path: number = 0;
   searchFilter: string = '';
   pageSize: number = 10;
+  employeeEmitter=new EventEmitter();
   searchSelect: number = 1;
   ngOnInit(): void {
     this.getNewData();
   }
   selectHome() {
-    this.path = 0;
+    this.showDetailsComponent=false;
+    this.selectedEmplooyee=null;
   }
   selectDetails() {
-    this.path = 1;
+    this.showDetailsComponent=true;
   }
   employees: any;
   selectSearchValue(num: number) {
@@ -46,6 +50,7 @@ export class EmployeeListComponent implements OnInit {
       emplShort.first_name = empl.first_name;
       emplShort.last_name = empl.last_name;
       emplShort.salary = empl.salary;
+      emplShort.position=empl.position;
       emplShort.department = empl.department;
       emplShort.email_address = empl.email_address;
       emplShort.contact_number = empl.contact_number;
@@ -56,8 +61,13 @@ export class EmployeeListComponent implements OnInit {
   }
 
   edit(employee: any) {
-    console.log(employee);
-    this.path = 1;
+    // console.log(employee);
+    //  this.employeeDetails.profileForm.setValue({first_name:employee.first_name,last_name:employee.last_name,department:employee.department,position:employee.position,salary:employee.salary,takenImage:employee.takenImage,contact_number:employee.contact_number,email_address:employee.email_address});
+    // this.employeeEmitter.emit();
+    // console.log(employee);
+    this.selectedEmplooyee=employee;
+    this.showDetailsComponent=true;
+    
   }
   delete(id: number) {
     this.employeeService.deleteEmployee(id).subscribe(
