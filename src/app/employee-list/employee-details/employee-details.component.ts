@@ -34,7 +34,7 @@ export class EmployeeDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.employeeClick) {
-      console.log(this.employeeClick);
+      // console.log(this.employeeClick);
       this.profileForm.patchValue({
         first_name: this.employeeClick.first_name,
         last_name: this.employeeClick.last_name,
@@ -68,7 +68,7 @@ export class EmployeeDetailsComponent implements OnInit {
   });
 
   submitForm() {
-    console.log(this.profileForm);
+    // console.log(this.profileForm);
     if (this.profileForm.valid) {
       // console.log('form valid');
       // console.log(this.imageUrl);
@@ -94,7 +94,7 @@ export class EmployeeDetailsComponent implements OnInit {
                   salary: this.profileForm.get('salary').value,
                 })
                 .subscribe((employee) => {
-                  console.log(employee);
+                  // console.log(employee);
                   this.employeeAddedEvent.emit();
                   console.log('emplooye added');
                   this.profileForm.reset();
@@ -110,13 +110,9 @@ export class EmployeeDetailsComponent implements OnInit {
             }
           });
       } else {
-        console.log(this.employeeClick);
+        // console.log(this.employeeClick);
         this.showProgress = true;
         const formData = new FormData();
-
-        
-        
-
         formData.append('imageFile', this.selectedImage);
 
         this.httpClient
@@ -137,7 +133,7 @@ export class EmployeeDetailsComponent implements OnInit {
                   salary: this.profileForm.get('salary').value,
                 })
                 .subscribe((employee) => {
-                  console.log(employee);
+                  // console.log(employee);
                   this.employeeAddedEvent.emit();
                   console.log('emplooye Updated');
                   this.profileForm.reset();
@@ -164,7 +160,7 @@ export class EmployeeDetailsComponent implements OnInit {
     this.userPhoto.nativeElement.value = null;
   }
   public onFileSelect(event) {
-    console.log(event);
+    // console.log(event);
     this.selectedImage = event.target.files[0];
 
     // Below part is used to display the selected image

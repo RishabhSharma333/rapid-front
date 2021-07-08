@@ -43,7 +43,7 @@ export class EmployeeListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+      // console.log('The dialog was closed');
       // console.log(this.mobile);
     });
   }
@@ -77,7 +77,7 @@ export class EmployeeListComponent implements OnInit {
       this.showProgress=true;
       this.employeeService.getEmployeeByDepartment(value).subscribe(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           this.handleResponse(res);
           this.showProgress=false;
           // this.employees=res;
@@ -96,7 +96,7 @@ export class EmployeeListComponent implements OnInit {
           }
         },
         (err) => {
-          console.log(err);
+          // console.log(err);
           this.showProgress=false;
         }
       );
@@ -104,7 +104,7 @@ export class EmployeeListComponent implements OnInit {
       this.showProgress=true;
       this.employeeService.getEmployeeByPosition(value).subscribe(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
           // this.employees=res;
           this.showProgress=false;
           this.handleResponse(res);
@@ -122,7 +122,7 @@ export class EmployeeListComponent implements OnInit {
           }
         },
         (err) => {
-          console.log(err);
+          // console.log(err);
           this.showProgress=false;
         }
       );
@@ -131,7 +131,7 @@ export class EmployeeListComponent implements OnInit {
   }
   handleResponse(response) {
     this.employees = new Array<Employee>();
-    console.log(response);
+    // console.log(response);
     this.employeeHelp = response;
     for (const empl of this.employeeHelp) {
       const emplShort = new Employee();
@@ -150,10 +150,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   edit(employee: any) {
-    // console.log(employee);
-    //  this.employeeDetails.profileForm.setValue({first_name:employee.first_name,last_name:employee.last_name,department:employee.department,position:employee.position,salary:employee.salary,takenImage:employee.takenImage,contact_number:employee.contact_number,email_address:employee.email_address});
-    // this.employeeEmitter.emit();
-    // console.log(employee);
+    
     this.selectedEmplooyee = employee;
     this.showDetailsComponent = true;
     this.messagesFromRegistration = 'Employee list is updated';
@@ -178,7 +175,7 @@ export class EmployeeListComponent implements OnInit {
   deleteEmployee() {
     this.employeeService.deleteEmployee(this.toDeleteemployee.id).subscribe(
       (res: any) => {
-        console.log(this.employees);
+        // console.log(this.employees);
         this.messagesFromDeletion = null;
         this.toDeleteemployee = null;
         this.getNewData(12);
@@ -212,6 +209,10 @@ export class EmployeeListComponent implements OnInit {
     setTimeout(() => {
       if (wordSearch == this.pageSize) {
         if (this.pageSize>0) {
+          this.employees = this.getNewData(this.pageSize);
+        }
+        else{
+          this.pageSize=12;
           this.employees = this.getNewData(this.pageSize);
         }
       } else {
