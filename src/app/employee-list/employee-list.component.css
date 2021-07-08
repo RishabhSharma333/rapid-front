@@ -37,3 +37,10 @@
     font-size: 2rem;
   }
 
+  .drawOver {
+    position: absolute;
+    left:3rem;
+    top: 5rem;
+    
+    
+  }

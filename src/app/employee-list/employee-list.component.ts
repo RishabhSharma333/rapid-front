@@ -12,7 +12,10 @@ export class EmployeeListComponent implements OnInit {
   empolyees: Array<Employee>;
   employeeHelp: Array<Employee>;
   showDetailsComponent:boolean=false;
+  messagesFromRegistration:string="new messags";
   selectedEmplooyee:Employee;
+  messagesFromDeletion:string;
+  toDeleteemployee:Employee;
 
   showFiller: boolean = true;
   path: number = 0;
@@ -37,6 +40,8 @@ export class EmployeeListComponent implements OnInit {
   getNewData() {
     this.employeeService.getAllEmployees(10).subscribe((res) => {
       this.handleResponse(res);
+      this.messagesFromRegistration='Employee list is updated';
+      setTimeout(() => { this.messagesFromRegistration=null; }, 3000);
     });
   }
 
@@ -69,12 +74,23 @@ export class EmployeeListComponent implements OnInit {
     this.showDetailsComponent=true;
     
   }
-  delete(id: number) {
-    this.employeeService.deleteEmployee(id).subscribe(
+
+  delete(employee:Employee) {
+    this.messagesFromDeletion="Are you sure to delete employee with name "+employee.first_name+' '+employee.last_name+' ?';
+    this.toDeleteemployee=employee;
+    setTimeout(() => { this.messagesFromDeletion=null;
+    this.toDeleteemployee=null; }, 3000);
+  }
+  deleteEmployee(){
+    this.employeeService.deleteEmployee(this.toDeleteemployee.id).subscribe(
       (res: any) => {
         console.log(this.employees);
+        this.messagesFromDeletion=null;
+        this.toDeleteemployee=null;
+        this.getNewData();
       },
       (err: any) => {}
     );
+
   }
 }
