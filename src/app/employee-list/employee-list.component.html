@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <span style="margin: 3px 0 0 50px; color: black"
+  <span style="margin: 3px 0 0 50px; color:white"
     >Employee Mangement Application
   </span>
   <span class="example-spacer"></span>
@@ -72,16 +72,11 @@
 
         <mat-form-field style="margin: 1rem">
           <mat-label>Page Size: {{ pageSize }}</mat-label>
-          <input matInput type="number" [(ngModel)]="pageSize" />
+          <input matInput type="number" [(ngModel)]="pageSize" (keyup)="pageSizechange()" />
+          <mat-hint *ngIf="pageSize  <= 0"> <mat-icon>error_outline</mat-icon> Page size can't be less than 1 </mat-hint>
         </mat-form-field>
 
-        <button
-          mat-button
-          style="height: 2rem; margin-left: 2rem; margin-top: 2rem"
-          *ngIf="pageSize != ''"
-        >
-          Change Page Size <mat-icon>line_weight</mat-icon>
-        </button>
+      
 
         <button
           mat-raised-button
@@ -102,18 +97,16 @@
             >Search for the
             {{ searchSelect == 1 ? "Department" : "Position" }}</mat-label
           >
-          <input matInput [(ngModel)]="searchFilter" />
+          <input matInput [(ngModel)]= "searchFilter" (keyup)="startDPSearch()" />
         </mat-form-field>
 
-        <button
-          mat-button
-          style="height: 2rem; margin-left: 2rem; margin-top: 2rem"
-          *ngIf="searchFilter != ''"
-        >
-          Search <mat-icon>search</mat-icon>
-        </button>
+        
       </div>
       <br />
+
+      <mat-divider></mat-divider>
+      <mat-divider></mat-divider>
+      <mat-progress-bar *ngIf="showProgress" mode="indeterminate"></mat-progress-bar>
 
       <mat-grid-list cols="3" rowHeight="3:2">
         <mat-grid-tile *ngFor="let employee of employees">
@@ -124,7 +117,7 @@
           *ngIf="
             toDeleteemployee==employee
           "
-          style=" color: white; height: 16rem; background-color: black"
+          style=" color: white; height: 16rem; background-color:#068d9d"
         >
           <mat-card-content fxLayout="row">
             <mat-card-header>
@@ -136,7 +129,7 @@
            
           </mat-card-content>
           <mat-card-actions>
-             <button mat-button (click)="deleteEmployee()" style="margin:3rem;">
+             <button mat-raised-button (click)="deleteEmployee()" style="margin:2rem;">
               <mat-icon>delete</mat-icon> Delete
             </button>
            
@@ -162,7 +155,7 @@
                 <mat-card-actions fxLayout="row">
                   <button
                     mat-stroked-button
-                    style="background-color: black; color: white"
+                    style="background-color:#068d9d; color: black;"
                     (click)="delete(employee)"
                   >
                     Delete
@@ -188,10 +181,10 @@
         *ngIf="
           !(messagesFromRegistration == null || messagesFromRegistration == '')
         "
-        style="width: 30%; height: 2rem; color: white; background-color: black"
+        style="width: 30%; height: 2rem; color: white; background-color:#068d9d"
       >
         <mat-card-content fxLayout="row">
-          <p style="width: 50%">{{ messagesFromRegistration }}</p>
+          <p style="width: 80%">{{ messagesFromRegistration }}</p>
           <button mat-button (click)="messagesFromRegistration = null">
             <mat-icon>close</mat-icon> Close
           </button>

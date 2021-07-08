@@ -12,25 +12,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatTabsModule } from '@angular/material/tabs';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -45,23 +38,16 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatToolbarModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSelectModule,
-    MatTabsModule,
-    MatProgressSpinnerModule,
     MatIconModule,
-    MatSlideToggleModule,
     MatProgressBarModule,
     MatFormFieldModule,
     FlexLayoutModule,
-    MatTableModule,
     MatButtonModule,
     MatCardModule,
     MatMenuModule,
     MatGridListModule,
     MatInputModule,
-    MatDialogModule,
     MatSidenavModule,
-    MatExpansionModule,
     MatListModule,
     MatDividerModule,
     HttpClientModule,

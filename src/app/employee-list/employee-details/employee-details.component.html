@@ -1,4 +1,6 @@
 <div class="columns" style="background-color: #dee2ff; padding: 4rem">
+  <mat-progress-bar *ngIf="showProgress" mode="indeterminate"></mat-progress-bar>
+
   <div fxLayout="row">
     <form
       [formGroup]="profileForm"
@@ -147,4 +149,18 @@
       <img [src]="imageUrl" width="250" height="300" *ngIf="imageUrl" />
     </div>
   </div>
+  <mat-card
+        class="drawOver"
+        *ngIf="
+          !(messagesFromRegistration == null || messagesFromRegistration == '')
+        "
+        style="width: 30%; height: 2rem; color: white; background-color:#068d9d"
+      >
+        <mat-card-content fxLayout="row">
+          <p style="width: 80%">{{ messagesFromRegistration }}</p>
+          <button mat-button (click)="messagesFromRegistration = null">
+            <mat-icon>close</mat-icon> Close
+          </button>
+        </mat-card-content>
+      </mat-card>
 </div>

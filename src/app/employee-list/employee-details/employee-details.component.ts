@@ -1,5 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { EmployeeService } from 'src/app/employee.service';
 import { Employee } from 'src/app/model/Employee';
@@ -16,22 +24,30 @@ export class EmployeeDetailsComponent implements OnInit {
     private employeeService: EmployeeService
   ) {}
   employee: Employee;
-  @Input() employeeClick:Employee;
+  messagesFromRegistration: string;
+  @Input() employeeClick: Employee;
   @Output()
   employeeAddedEvent = new EventEmitter();
   imageUrl: any;
   selectedImage;
   @ViewChild('userPhoto') userPhoto: ElementRef;
- 
 
   ngOnInit(): void {
-    if(this.employeeClick){
-    //  console.log(this.employeeClick);
-     this.profileForm.patchValue({first_name:this.employeeClick.first_name, last_name:this.employeeClick.last_name ,department:this.employeeClick.department ,salary:this.employeeClick.salary ,email_address:this.employeeClick.email_address,contact_number:this.employeeClick.contact_number});
-      this.profileForm.patchValue({position:this.employeeClick.position});
-      this.imageUrl=this.employeeClick.takenImage;
+    if (this.employeeClick) {
+      console.log(this.employeeClick);
+      this.profileForm.patchValue({
+        first_name: this.employeeClick.first_name,
+        last_name: this.employeeClick.last_name,
+        department: this.employeeClick.department,
+        salary: this.employeeClick.salary,
+        email_address: this.employeeClick.email_address,
+        contact_number: this.employeeClick.contact_number,
+      });
+      this.profileForm.patchValue({ position: this.employeeClick.position });
+      this.selectedImage = this.employeeClick.image;
     }
   }
+  showProgress: boolean = false;
   profileForm = this.formBuilder.group({
     first_name: ['', [Validators.required, Validators.minLength(2)]],
     last_name: ['', [Validators.required, Validators.minLength(2)]],
@@ -54,47 +70,98 @@ export class EmployeeDetailsComponent implements OnInit {
   submitForm() {
     console.log(this.profileForm);
     if (this.profileForm.valid) {
-      console.log('form valid');
-      console.log(this.imageUrl);
+      // console.log('form valid');
+      // console.log(this.imageUrl);
+      if (!this.employeeClick) {
+        this.showProgress = true;
+        const formData = new FormData();
+        formData.append('imageFile', this.selectedImage);
 
-      const formData = new FormData();
-      formData.append('imageFile', this.selectedImage );
+        this.httpClient
+          .post('http://localhost:8080/api/upload', formData, {
+            observe: 'response',
+          })
+          .subscribe((res) => {
+            if (res.status === 200) {
+              this.employeeService
+                .addEmployee({
+                  first_name: this.profileForm.get('first_name').value,
+                  last_name: this.profileForm.get('last_name').value,
+                  contact_number: this.profileForm.get('contact_number').value,
+                  email_address: this.profileForm.get('email_address').value,
+                  department: this.profileForm.get('department').value,
+                  position: this.profileForm.get('position').value,
+                  salary: this.profileForm.get('salary').value,
+                })
+                .subscribe((employee) => {
+                  console.log(employee);
+                  this.employeeAddedEvent.emit();
+                  console.log('emplooye added');
+                  this.profileForm.reset();
+                  this.showProgress = false;
+                  this.imageUrl = null;
+                  this.userPhoto.nativeElement.value = null;
+                  this.messagesFromRegistration = 'Added Employee to List';
+                  setTimeout(() => {
+                    this.messagesFromRegistration = null;
+                  }, 3000);
+                  this.employeeClick = null;
+                });
+            }
+          });
+      } else {
+        console.log(this.employeeClick);
+        this.showProgress = true;
+        const formData = new FormData();
 
-      this.httpClient
-        .post('http://localhost:8080/api/upload', formData, {
-          observe: 'response',
-        })
-        .subscribe((res) => {
-          if (res.status === 200) {
-            this.employeeService
-              .addEmployee({
-                "first_name":this.profileForm.get('first_name').value,
-                "last_name": this.profileForm.get('last_name').value,
-                "contact_number":this.profileForm.get('contact_number').value,
-                "email_address":this.profileForm.get('email_address').value,
-                "department":this.profileForm.get('department').value,
-                "position":this.profileForm.get('position').value,
-                "salary":this.profileForm.get('salary').value
+        // Below part is used to display the selected image
+        this.imageUrl = null;
+        this.userPhoto.nativeElement.value = null;
 
-              })
-              .subscribe((employee) => {
-                console.log(employee);
-                this.employeeAddedEvent.emit();
-                console.log('emplooye added');
-                this.profileForm.reset();
-                this.imageUrl=null;
-                this.userPhoto.nativeElement.value = null;
-                this.employeeClick=null;
-              });
-          }
-        });
+        formData.append('imageFile', this.selectedImage);
+
+        this.httpClient
+          .post('http://localhost:8080/api/upload', formData, {
+            observe: 'response',
+          })
+          .subscribe((res) => {
+            if (res.status === 200) {
+              this.employeeService
+                .updateEmployee({
+                  id:this.employeeClick.id,
+                  first_name: this.profileForm.get('first_name').value,
+                  last_name: this.profileForm.get('last_name').value,
+                  contact_number: this.profileForm.get('contact_number').value,
+                  email_address: this.profileForm.get('email_address').value,
+                  department: this.profileForm.get('department').value,
+                  position: this.profileForm.get('position').value,
+                  salary: this.profileForm.get('salary').value,
+                })
+                .subscribe((employee) => {
+                  console.log(employee);
+                  this.employeeAddedEvent.emit();
+                  console.log('emplooye Updated');
+                  this.profileForm.reset();
+                  this.showProgress = false;
+                  this.imageUrl = null;
+                  this.userPhoto.nativeElement.value = null;
+                  this.messagesFromRegistration = 'Updated Employee to List';
+                  setTimeout(() => {
+                    this.messagesFromRegistration = null;
+                  }, 3000);
+                  this.employeeClick = null;
+                });
+            }
+          });
+      }
     }
     // this.profileForm.reset();
   }
-  clearForm(){
+  clearForm() {
     this.profileForm.reset();
-    this.employeeClick=null;
-    this.imageUrl=null;
+    this.employeeClick = null;
+    this.imageUrl = null;
+    this.showProgress = false;
     this.userPhoto.nativeElement.value = null;
   }
   public onFileSelect(event) {

@@ -20,6 +20,9 @@ export class EmployeeService {
   deleteEmployee(id:number){
     return this.http.delete(this.urlBase+'delete/'+id);
   }
+  updateEmployee(data:any){
+    return this.http.put<Employee>(this.urlBase+'update/'+data.id,data);
+  }
   getEmployeeByPosition(pos:string){
     return this.http.post(this.urlBase+'filterPosition/',{position:pos});
 
