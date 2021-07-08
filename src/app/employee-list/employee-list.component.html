@@ -4,15 +4,23 @@
   </span>
   <span class="example-spacer"></span>
   <span>
-    <button mat-button style="margin: 1rem">
-      Github Frontend Code <mat-icon>code</mat-icon>
+    <button  mat-button style="margin: 1rem"
+    (click)="openDialog()"
+     >
+      Perks of this Application <mat-icon>thumb_up</mat-icon>
     </button>
   </span>
 
   <span>
-    <button mat-button style="margin: 1rem">
+    <a href="https://github.com/RishabhSharma333/rapid-front" target="_blank" mat-button style="margin: 1rem">
+      Github Frontend Code <mat-icon>code</mat-icon>
+    </a>
+  </span>
+
+  <span>
+    <a href="https://github.com/RishabhSharma333/rapid-backend" target="_blank" mat-button style="margin: 1rem">
       Github Backend Code<mat-icon>code</mat-icon>
-    </button>
+    </a>
   </span>
   <span>
     <button mat-button style="margin: 1rem; color: black">
@@ -81,9 +89,9 @@
         <button
           mat-raised-button
           [matMenuTriggerFor]="menu"
-          style="height: 3rem; margin-left: 10%; margin-top: 2rem"
+          style="height: 2.5rem; margin-left: 10%; margin-top: 14px"
         >
-          Filter Using <mat-icon>expand_more</mat-icon>
+          Filter Using   {{ searchSelect == 1 ? "Department" : "Position" }}<mat-icon>expand_more</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="selectSearchValue(1)">
@@ -112,7 +120,7 @@
         <mat-grid-tile *ngFor="let employee of employees">
 
           <mat-card
-          class="mat-elevation-z3" style="margin: 1rem; width: 100%"
+          class="mat-elevation-z3" style="margin-top :1rem ;margin-left:1rem ;margin-right:1rem; width: 100%"
         
           *ngIf="
             toDeleteemployee==employee

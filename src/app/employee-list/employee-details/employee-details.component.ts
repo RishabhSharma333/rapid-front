@@ -114,9 +114,8 @@ export class EmployeeDetailsComponent implements OnInit {
         this.showProgress = true;
         const formData = new FormData();
 
-        // Below part is used to display the selected image
-        this.imageUrl = null;
-        this.userPhoto.nativeElement.value = null;
+        
+        
 
         formData.append('imageFile', this.selectedImage);
 

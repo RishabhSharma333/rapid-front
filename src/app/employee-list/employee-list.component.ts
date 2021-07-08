@@ -1,8 +1,10 @@
 import {
   Component,
   OnInit,
-  EventEmitter
+  EventEmitter,
+  Inject
 } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EmployeeService } from '../employee.service';
 import { Employee } from '../model/Employee';
 
@@ -12,7 +14,7 @@ import { Employee } from '../model/Employee';
   styleUrls: ['./employee-list.component.css'],
 })
 export class EmployeeListComponent implements OnInit {
-  constructor(private employeeService: EmployeeService) {}
+  constructor(private employeeService: EmployeeService, public dialog: MatDialog, ) {}
   empolyees: Array<Employee>;
   employeeHelp: Array<Employee>;
   showDetailsComponent: boolean = false;
@@ -33,6 +35,20 @@ export class EmployeeListComponent implements OnInit {
   ngOnInit(): void {
     // this.pageSize=12;
     this.getNewData(this.pageSize);
+  }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogOverview, {
+      width: '700px',
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      // console.log(this.mobile);
+    });
+  }
+  closeDialog(): void {
+    this.dialog.closeAll();
   }
 
   selectHome() {
@@ -166,6 +182,7 @@ export class EmployeeListComponent implements OnInit {
         this.messagesFromDeletion = null;
         this.toDeleteemployee = null;
         this.getNewData(12);
+        this.pageSize=12;
         this.messagesFromRegistration = 'Deleted Employee';
       setTimeout(() => {
         this.messagesFromRegistration = null;
@@ -190,6 +207,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   pageSizechange(event: any) {
+    this.searchFilter='';
     let wordSearch = this.pageSize;
     setTimeout(() => {
       if (wordSearch == this.pageSize) {
@@ -201,4 +219,26 @@ export class EmployeeListComponent implements OnInit {
       }
     }, 1000);
   }
+  
+  
+}
+
+
+@Component({
+  selector: 'dialog-overview',
+  templateUrl: 'dialog-overview.html',
+})
+export class DialogOverview {
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverview>,
+    @Inject(MAT_DIALOG_DATA) public data: string,
+  ){
+    
+  }
+  
+ 
+  closeDialog(): void {
+    this.dialogRef.close();
+  }
+  
 }
